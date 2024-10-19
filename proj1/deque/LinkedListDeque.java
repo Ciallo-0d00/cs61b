@@ -79,7 +79,7 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T>{
     @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+            return null;
         }
         if (size == 1) {
             return (T) sentinel.next.item;

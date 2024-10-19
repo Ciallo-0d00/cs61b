@@ -68,8 +68,8 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
 
     @Override
     public T removeFirst() {
-        if (size == 0) {
-            throw new java.util.NoSuchElementException();
+        if (size <= 0) {
+            return null;
         }
         T removed = items[front];
         size--;
@@ -82,8 +82,8 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
 
     @Override
     public T removeLast() {
-        if (size == 0) {
-            throw new java.util.NoSuchElementException();
+        if (size <= 0) {
+            return null;
         }
         T removed = items[rear];
         size--;
@@ -96,7 +96,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
 
     @Override
     public T get(int index) {
-        return items[front + index - 1];
+        return items[(front + index - 1) % items.length];
     }
 
     @Override
