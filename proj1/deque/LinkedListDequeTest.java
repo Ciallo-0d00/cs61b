@@ -2,6 +2,7 @@ package deque;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import edu.princeton.cs.algs4.StdRandom;
 
 
 /** Performs some basic linked list tests. */
@@ -109,4 +110,56 @@ public class LinkedListDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
     }
+    @Test
+    public void randomizedTest() {
+        LinkedListDeque<Integer> L = new LinkedListDeque<>();
+        int N = 10000;
+        for (int i = 0; i < N; i += 1) {
+            int operationNumber = StdRandom.uniform(0, 6);
+            if (operationNumber == 0) {
+                // addLast
+                int randVal = StdRandom.uniform(0, 100);
+                L.addLast(randVal);
+            } else if (operationNumber == 1) {
+                // size
+                int size = L.size();
+            } else if (operationNumber == 2 && L.size() > 0) {
+                int randVal = StdRandom.uniform(0, 100);
+                L.addFirst(randVal);
+            } else if (operationNumber == 3 && L.size() > 0) {
+                L.removeLast();
+            } else if (operationNumber == 4 && L.size() > 0) {
+                L.removeFirst();
+            } else if (operationNumber == 5 && L.size() > 0) {
+                // the program should not crash even if going beyond its size limit
+                int randVal = StdRandom.uniform(0, L.size()+1);
+                L.get(randVal);
+            }
+        }
+    }
+
+    @Test
+    public void equalTest(){
+        Deque<Integer> lld1 = new LinkedListDeque<Integer>();
+        Deque<Integer> lld2 = new LinkedListDeque<Integer>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld2.addFirst(1);
+        lld2.addFirst(2);
+        assertTrue(lld1.equals(lld2));
+        assertTrue(lld2.equals(lld1));
+
+        lld1.addFirst(3);
+        assertFalse(lld1.equals(lld2));
+        assertFalse(lld2.equals(lld1));
+
+        assertFalse(lld1.equals(null));
+
+        Deque<Integer> addr1 = new ArrayDeque<Integer>();
+        addr1.addFirst(1);
+        addr1.addFirst(2);
+        addr1.addFirst(3);
+        assertTrue(lld1.equals(addr1));
+    }
+
 }

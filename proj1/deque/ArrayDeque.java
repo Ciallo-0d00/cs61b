@@ -126,14 +126,33 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
     private void resize(int cap) {
         T[] a = (T []) new Object[cap];
         if(front <= rear){
-            System.arraycopy(items, front, a, front, size);
+            System.arraycopy(items, front, a, 0, size);
         }else {
-            System.arraycopy(items, front, a, front, items.length - front);
+            System.arraycopy(items, front, a, 0, items.length - front);
             System.arraycopy(items, 0, a, items.length - front, rear + 1);
-            items = a;
-            front = 0;
-            rear = size - 1;
         }
+        items = a;
+        front = 0;
+        rear = size - 1;
+    }
+    @Override
+    public boolean equals(Object o){
+        if (this == o) {
+            return true;
+        }
+        if (o instanceof Deque){
+            if(this.size != ((Deque<?>) o).size()){
+                return false;
+            }
+            for (int i = 0; i < size(); i++) {
+                if(this.get(i) != ((Deque<?>) o).get(i)){
+                    return false;
+                }
+            }
+        }else{
+            return false;
+        }
+        return true;
     }
 
 }
