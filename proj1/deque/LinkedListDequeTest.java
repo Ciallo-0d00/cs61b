@@ -16,13 +16,13 @@ public class LinkedListDequeTest {
     public void addIsEmptySizeTest() {
         LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
 
-		assertTrue("A newly initialized LLDeque should be empty", lld1.isEmpty());
+		assertTrue("A newly initialized LLDeque should be empty", lld1.size() == 0);
 		lld1.addFirst("front");
 
 		// The && operator is the same as "and" in Python.
 		// It's a binary operator that returns true if both arguments true, and false otherwise.
         assertEquals(1, lld1.size());
-        assertFalse("lld1 should now contain 1 item", lld1.isEmpty());
+        assertFalse("lld1 should now contain 1 item", lld1.size() == 0);
 
 		lld1.addLast("middle");
 		assertEquals(2, lld1.size());
@@ -38,13 +38,13 @@ public class LinkedListDequeTest {
     /** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
     public void addRemoveTest() {
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-		assertTrue("lld1 should be empty upon initialization", lld1.isEmpty());
+		assertTrue("lld1 should be empty upon initialization", lld1.size() == 0);
 
 		lld1.addFirst(10);
-		assertFalse("lld1 should contain 1 item", lld1.isEmpty());
+		assertFalse("lld1 should contain 1 item", lld1.size() == 0);
 
 		lld1.removeFirst();
-		assertTrue("lld1 should be empty after removal", lld1.isEmpty());
+		assertTrue("lld1 should be empty after removal", lld1.size() == 0);
     }
 
     @Test

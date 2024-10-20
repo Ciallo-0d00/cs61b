@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     private T[] items;
     private int size;
@@ -19,8 +19,8 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         if (size == items.length) {
             resize(size * 2);
         }
-        int firstIndex = (size == 0)? 0 : (front - 1 + items.length) % items.length;
-        items[firstIndex]=item;
+        int firstIndex = (size == 0) ? 0 : (front - 1 + items.length) % items.length;
+        items[firstIndex] = item;
         if (size == 0) {
             front = firstIndex;
             rear = firstIndex;
@@ -35,21 +35,17 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         if (size == items.length) {
             resize(size * 2);
         }
-        int lastIndex = (size == 0)? 0: (rear + 1) % items.length;
+        int lastIndex = (size == 0) ? 0 : (rear + 1) % items.length;
         items[lastIndex] = item;
-        if (size == 0){
+        if (size == 0) {
             front = lastIndex;
             rear = lastIndex;
-        }else {
+        } else {
             rear = lastIndex;
         }
-        size ++;
+        size++;
     }
 
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
 
     @Override
     public int size() {
@@ -61,7 +57,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         int index = front;
         for (int i = 0; i < size; i++) {
             System.out.print(items[index] + " ");
-            index=(index + 1)%items.length;
+            index = (index + 1) % items.length;
         }
         System.out.println();
     }
@@ -74,7 +70,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         T removed = items[front];
         size--;
         front = (front + 1) % items.length;
-        if (items.length >= 16 && size < items.length / 4){
+        if (items.length >= 16 && size < items.length / 4) {
             resize(items.length / 2);
         }
         return removed;
@@ -88,7 +84,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         T removed = items[rear];
         size--;
         rear = (rear - 1 + items.length) % items.length;
-        if (items.length >= 16 && size < items.length / 4){
+        if (items.length >= 16 && size < items.length / 4) {
             resize(items.length / 2);
         }
         return removed;
@@ -117,7 +113,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
                     throw new java.util.NoSuchElementException();
                 }
                 T item = items[currentIndex];
-                currentIndex = (currentIndex + 1)% items.length;
+                currentIndex = (currentIndex + 1) % items.length;
                 count++;
                 return item;
             }
@@ -125,9 +121,9 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
     }
     private void resize(int cap) {
         T[] a = (T []) new Object[cap];
-        if(front <= rear){
+        if(front <= rear) {
             System.arraycopy(items, front, a, 0, size);
-        }else {
+        } else {
             System.arraycopy(items, front, a, 0, items.length - front);
             System.arraycopy(items, 0, a, items.length - front, rear + 1);
         }
@@ -136,23 +132,25 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         rear = size - 1;
     }
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
         if (this == o) {
             return true;
         }
-        if (o instanceof Deque){
-            if(this.size != ((Deque<?>) o).size()){
+        if (o instanceof Deque) {
+            if (this.size!= ((Deque<?>) o).size()) {
                 return false;
             }
             for (int i = 0; i < size(); i++) {
-                if(this.get(i) != ((Deque<?>) o).get(i)){
+                if (!this.get(i).equals(((Deque<?>) o).get(i))) {
                     return false;
                 }
             }
-        }else{
+        } else {
             return false;
         }
         return true;
     }
-
 }
