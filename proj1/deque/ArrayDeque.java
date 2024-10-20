@@ -8,12 +8,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private int front;
     private int rear;
+
     public ArrayDeque() {
-        items = (T []) new Object[8];
+        items = (T[]) new Object[8];
         size = 0;
         front = 0;
         rear = 0;
     }
+
     @Override
     public void addFirst(T item) {
         if (size == items.length) {
@@ -103,10 +105,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return new Iterator<T>() {
             private int count = 0;
             private int currentIndex = front;
+
             @Override
             public boolean hasNext() {
                 return count < size;
             }
+
             @Override
             public T next() {
                 if (!hasNext()) {
@@ -119,9 +123,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             }
         };
     }
+
     private void resize(int cap) {
-        T[] a = (T []) new Object[cap];
-        if(front <= rear) {
+        T[] a = (T[]) new Object[cap];
+        if (front <= rear) {
             System.arraycopy(items, front, a, 0, size);
         } else {
             System.arraycopy(items, front, a, 0, items.length - front);
@@ -131,6 +136,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         front = 0;
         rear = size - 1;
     }
+
     @Override
     public boolean equals(Object o) {
         if (o == null) {
@@ -140,7 +146,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return true;
         }
         if (o instanceof Deque) {
-            if (this.size!= ((Deque<?>) o).size()) {
+            if (this.size != ((Deque<?>) o).size()) {
                 return false;
             }
             for (int i = 0; i < size(); i++) {
